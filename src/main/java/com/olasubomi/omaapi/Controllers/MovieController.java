@@ -1,16 +1,25 @@
 package com.olasubomi.omaapi.Controllers;
 
+import com.olasubomi.omaapi.Model.Movie;
+import com.olasubomi.omaapi.Services.IMovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/movies")
 public class MovieController {
 
+    @Autowired
+    private IMovieService movieService;
+
     @GetMapping
-    public ResponseEntity<String> getAllMovies(){
-        return ResponseEntity.ok("List of all movies.");
+    public ResponseEntity<List<Movie>> getAllMovies(){
+        return new ResponseEntity<List<Movie>>(movieService.allMovies(), HttpStatus.OK);
     }
 }
